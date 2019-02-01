@@ -142,6 +142,11 @@ struct mosquitto__packet{
 	uint16_t mid;
 	uint8_t command;
 	int8_t remaining_count;
+	/* PROXY v1 */
+	int8_t proxy;
+	/* Packet Buffer */
+	uint8_t buffer[108];
+	uint8_t bufSize;
 };
 
 struct mosquitto_message_all{
@@ -275,6 +280,11 @@ struct mosquitto {
 	ares_channel achan;
 #  endif
 #endif
+
+	// Support for PROXY v1
+	char *remote_host;
+	int remote_port;
+	int remote_af;
 
 #ifdef WITH_BROKER
 	UT_hash_handle hh_id;
